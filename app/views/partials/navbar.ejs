@@ -1,0 +1,57 @@
+<div class="navbar bg-base-100 rounded-2xl z-50" style="background-color: rgba(0, 0, 0, 0.1);">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li>
+                    <a href="/main"><i class="fa-solid fa-house"></i> Main</a>
+                </li>
+                <li>
+                    <a href="/commands"><i class="fa-solid fa-terminal"></i> Commands</a>
+                </li>
+                <li>
+                    <a href="/dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="/contact"><i class="fa-solid fa-phone"></i> Contact</a>
+                </li>
+                <li>
+                    <a href="/api/bot/invite" target="_blank"><i class="fa-solid fa-user-plus"></i> Invite</a>
+                </li>
+            </ul>
+        </div>
+        <a href="/" class="btn btn-ghost text-white normal-case text-2xl">Erika ✨</a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 font-bold">
+            <li>
+                <a href="/main"><i class="fa-solid fa-house"></i> Main</a>
+            </li>
+            <li>
+                <a href="/commands"><i class="fa-solid fa-terminal"></i> Commands</a>
+            </li>
+            <li>
+                <a href="/dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="/contact"><i class="fa-solid fa-phone"></i> Contact</a>
+            </li>
+            <li>
+                <a href="/api/bot/invite" target="_blank"><i class="fa-solid fa-user-plus"></i> Invite</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-end">
+        <% if(session.isLogin !== true){ %>
+            <a class="btn btn-primary" href="/api/auth/discord">
+                <i class="fa-brands fa-discord"></i> <span class="font-normal">Discord Login</span>
+            </a>
+        <% } else { %>
+            <a class="btn btn-ghost" href="/api/auth/logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        <% } %>
+    </div>
+</div> 

@@ -1,0 +1,36 @@
+{
+  "name": "erika_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js",
+    "shard": "node ./shard.js"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.15",
+    "axios": "^1.5.0",
+    "body-parser": "^1.20.2",
+    "connect-mongodb-session": "^3.1.1",
+    "cors": "^2.8.5",
+    "discord.js": "^14.13.0",
+    "discord.js-v14-helper": "^1.11.4",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-useragent": "^1.0.15",
+    "http": "^0.0.1-security",
+    "mongoose": "^7.4.5",
+    "morgan": "^1.10.0",
+    "ms": "^2.1.3",
+    "mysql2": "^3.6.0",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "postcss": "^8.4.28",
+    "socket.io": "^4.7.2",
+    "tailwindcss": "^3.3.3",
+    "uuidv4": "^6.2.13"
+  }
+}

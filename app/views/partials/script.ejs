@@ -1,0 +1,18 @@
+<script src="/libs/axios/dist/axios.js"></script>
+<script src="/libs/notyf/notyf.min.js"></script>
+<script src="/libs/swiper/dist/swiper-element-bundle.js"></script>
+<!-- particles scripts -->
+<script src="/libs/particles.js/libs/particles.js"></script>
+<!-- particles setup -->
+<script src="/libs/particles.js/app-particle.js"></script>
+<!-- Socket.io Script -->
+<script src="/libs/socket.io-client/dist/socket.io.min.js"></script>
+<script>
+    const socket = io();
+    socket.on("connect", () => {
+        console.log("[Socket.io] Socket.io connected ID : " + socket.id);
+    });
+    socket.on("disconnect", () => {
+        console.log("[Socket.io] Socket.io disconnected ID : " + socket.id);
+    });
+</script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Erika Dashboard] Bot-v.4</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.2/dist/full.css" rel="stylesheet" type="text/css" />
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Notyf CSS -->
+    <link rel="stylesheet" href="/libs/notyf/notyf.min.js">
+    <!-- Particle Custom CSS -->
+    <link rel="stylesheet" href="/css/particle.css">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Prompt', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/script.ejs") %>
+    <!-- particle bg -->
+    <div id="particles-js"></div>
+    <!-- particle bg -->
+    <header>
+        <div class="container mx-auto">
+            <%- include("./partials/navbar.ejs") %>
+        </div>
+    </header>
+
+    <% if(PAGE === "MAIN"){ %>
+        <%- include("./pages/main.ejs") %>
+    <% } %>
+
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>
