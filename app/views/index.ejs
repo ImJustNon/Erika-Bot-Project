@@ -11,7 +11,7 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Notyf CSS -->
-    <link rel="stylesheet" href="/libs/notyf/notyf.min.js">
+    <link rel="stylesheet" href="/libs/notyf/notyf.min.css">
     <!-- Particle Custom CSS -->
     <link rel="stylesheet" href="/css/particle.css">
     <!-- Fontawesome -->
@@ -39,6 +39,10 @@
 
     <% if(PAGE === "MAIN"){ %>
         <%- include("./pages/main.ejs") %>
+    <% } else if(PAGE == "COMMANDS"){ %>
+        <%- include("./pages/commands.ejs") %>
+    <% } else if(PAGE == "LOGIN"){ %>
+        <%- include("./pages/login.ejs") %>
     <% } %>
 
     <%- include("./partials/footer.ejs") %>
