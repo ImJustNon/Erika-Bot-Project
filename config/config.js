@@ -64,6 +64,9 @@ module.exports = {
         address: process.env.ADDRESS,
         dev_mode: process.env.DEV_MODE === "true" ? true : false
     },
+    assets: {
+        invite_url: "https://discord.com/api/oauth2/authorize?client_id=1145391989857194064&permissions=150314937471&scope=bot%20applications.commands"
+    },
 
     // APIs:
     apis: {
