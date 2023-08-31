@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./index.js",
+    "dev-shard": "nodemon ./shard.js",
     "start": "node ./index.js",
     "shard": "node ./shard.js"
   },

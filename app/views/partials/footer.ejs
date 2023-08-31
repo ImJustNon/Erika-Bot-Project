@@ -7,12 +7,18 @@
     </div> 
     <div>
         <div class="grid grid-flow-col gap-4">
-            <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter fa-2x"></i></a> 
-            <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube fa-2x"></i></a> 
-            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-square-facebook fa-2x"></i></a>
+            <a href="https://github.com/ImJustNon" target="_blank"><i class="fa-brands fa-github fa-2x"></i></a> 
+            <a href="https://www.youtube.com/channel/UCCAlDdKswolIsOERlt0QWbw" target="_blank"><i class="fa-brands fa-youtube fa-2x"></i></a> 
+            <a href="https://twitter.com/NoNnYhA55" target="_blank"><i class="fa-brands fa-x-twitter fa-2x"></i></a>
         </div>
     </div> 
     <div>
-        <p>Copyright © 2023 - Nonlnwza.xyz</p>
+        <p>Copyright © <span id="text_copyright_year"></span> - <a class="text-black" target="_blank" href="https://bio.nonlnwza.xyz">Nonlnwza.xyz</a></p>
     </div>
 </footer>
+
+
+<script>
+    const text_copyright_year = document.getElementById("text_copyright_year");
+    text_copyright_year.innerHTML = new Date().getFullYear();
+</script>
