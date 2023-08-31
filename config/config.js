@@ -49,6 +49,22 @@ module.exports = {
         },
         mysql: MysqlConfig,
     },
+    player: {
+        nodes: [
+            {
+                name: 'Local',
+                url: '0.0.0.0:6558',
+                auth: 'reirin',
+                secure: false,
+            }
+        ],
+        apis: {
+            spotify: {
+                client_id: process.env.SPOTIFY_CLIENT_ID,
+                client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+            },
+        },
+    },
     app: {
         login: {
             callback_url: process.env.CALLBACK_URL,
