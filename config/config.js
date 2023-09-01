@@ -53,7 +53,7 @@ module.exports = {
         nodes: [
             {
                 name: 'Local',
-                url: '0.0.0.0:6558',
+                url: '0.0.0.0:23933',
                 auth: 'reirin',
                 secure: false,
             }

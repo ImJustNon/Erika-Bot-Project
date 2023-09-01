@@ -2,7 +2,7 @@ const { executeQuery } = require("../../database/mysql_connection.js");
 const { EmbedBuilder, version } = require('discord.js');
 
 module.exports = {
-    name: 'about',
+    name: 'botinfo',
     description: 'เกี่ยวกับบอท บอท',
     type: 1,
     options: [],
