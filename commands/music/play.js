@@ -64,7 +64,7 @@ module.exports = {
             }
             interaction.reply({
                 embeds: [
-                    new EmbedBuilder().setColor("Random").setDescription(`✅ | เพิ่มเพลง \`${result.tracks.length}\` รายการ จาก Playlist: \`${result.playlistName}\` เรียบร้อยเเล้ว`),
+                    new EmbedBuilder().setColor("Random").setDescription(`✅ | เพิ่ม \`${result.tracks.length}\` รายการ จาก Playlist: \`${result.playlistName}\` เรียบร้อยเเล้ว`),
                 ],
             });
         }
@@ -72,7 +72,7 @@ module.exports = {
             player.queue.add(result.tracks[0]);
             interaction.reply({
                 embeds: [
-                    new EmbedBuilder().setColor("Random").setDescription(`✅ | เพิ่มเพลง \`${result.tracks[0].title}\` เรียบร้อยเเล้ว`),
+                    new EmbedBuilder().setColor("Random").setDescription(`✅ | เพิ่ม \`${result.tracks[0].title}\` เรียบร้อยเเล้ว`),
                 ],  
             });
         }
