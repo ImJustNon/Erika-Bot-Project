@@ -24,7 +24,7 @@ module.exports = {
         });
         const statsEmbed = new EmbedBuilder()
         .setColor("Random")
-        .setThumbnail(client.user.displayAvatarURL())
+        .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
         .setDescription(`🖥 **Status**
 **========== STATISTICS ==========**
 **• Servers** : ${scount}
