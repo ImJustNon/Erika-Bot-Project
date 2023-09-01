@@ -56,7 +56,7 @@ module.exports = {
                 url: '0.0.0.0:23933',
                 auth: 'reirin',
                 secure: false,
-            }
+            },
         ],
         apis: {
             spotify: {
@@ -81,7 +81,8 @@ module.exports = {
         dev_mode: process.env.DEV_MODE === "true" ? true : false
     },
     assets: {
-        invite_url: "https://discord.com/api/oauth2/authorize?client_id=1145391989857194064&permissions=150314937471&scope=bot%20applications.commands"
+        invite_url: "https://discord.com/api/oauth2/authorize?client_id=1145391989857194064&permissions=150314937471&scope=bot%20applications.commands",
+        src_github_url: "https://github.com/ImJustNon/Erika-Bot-Project",
     },
 
     // APIs:

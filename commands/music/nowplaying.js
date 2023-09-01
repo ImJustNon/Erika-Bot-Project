@@ -26,75 +26,79 @@ module.exports = {
         if(me.voice.channel && !channel.equals(me.voice.channel)) return interaction.reply('⚠ | ดูเหมือนว่าคุณจะไม่ได้อยู่ช่องเสียงเดียวกันน่ะ');
         if(!player || !player.queue.current) return interaction.reply('⚠ | ยังไม่มีการเล่นเพลง ณ ตอนนี้เลยน่ะ');
 
-        
-        let Np_embed = new EmbedBuilder()
-            .setColor("Random")
-            .setThumbnail(player.queue.current.thumbnail)
-            .addFields([
-                {
-                    name: `🎵 | กำลังเล่นเพลง`,
-                    value: `> [${player.queue.current.title}](${player.queue.current.uri})`,
-                    inline: false,
-                },
-                {
-                    name: `🎧 | ช่องฟังเพลง`,
-                    value: `> <#${player.voiceId}>`,
-                    inline: true,
-                },
-                {
-                    name: `📢 | ขอเพลงโดย`,
-                    value: `> <@${player.queue.current.requester}>`,
-                    inline: true,
-                },
-                {
-                    name: `⏱️ | ความยาว`,
-                    value: `> \`${await convertTime(player.queue.current.length)}\``,
-                    inline: true,
-                },
-                {
-                    name: `🎙 | ศิลปิน`,
-                    value: `> \`${player.queue.current.author}\``,
-                    inline: true,
-                },
-                {
-                    name: `🌀 | คิว`,
-                    value: `> \`${player.queue.length}\``,
-                    inline: true,
-                },
-                {
-                    name: `🔁 | เปิดใช้วนซ้ำ`,
-                    value: `> ${player.loop !== "none" ? "✅" : "❌"}`,
-                    inline: true,
-                },
-                {
-                    name: `🔊 | ระดับเสียง`,
-                    value: `> \`${player.volume} %\``,
-                    inline: true,
-                },
-            ])
-            .setFooter({text: client.user.username})
-            .setTimestamp();
-        
-        if(player.queue.current.uri.includes("youtube.com")){
-            const info = await ytdl.getInfo(player.queue.current.identifier);
-            const format = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' });
+        try{        
+            let Np_embed = new EmbedBuilder()
+                .setColor("Random")
+                .setThumbnail(player.queue.current.thumbnail)
+                .addFields([
+                    {
+                        name: `🎵 | กำลังเล่นเพลง`,
+                        value: `> [${player.queue.current.title}](${player.queue.current.uri})`,
+                        inline: false,
+                    },
+                    {
+                        name: `🎧 | ช่องฟังเพลง`,
+                        value: `> <#${player.voiceId}>`,
+                        inline: true,
+                    },
+                    {
+                        name: `📢 | ขอเพลงโดย`,
+                        value: `> <@${player.queue.current.requester}>`,
+                        inline: true,
+                    },
+                    {
+                        name: `⏱️ | ความยาว`,
+                        value: `> \`${await convertTime(player.queue.current.length)}\``,
+                        inline: true,
+                    },
+                    {
+                        name: `🎙 | ศิลปิน`,
+                        value: `> \`${player.queue.current.author}\``,
+                        inline: true,
+                    },
+                    {
+                        name: `🌀 | คิว`,
+                        value: `> \`${player.queue.length}\``,
+                        inline: true,
+                    },
+                    {
+                        name: `🔁 | เปิดใช้วนซ้ำ`,
+                        value: `> ${player.loop !== "none" ? "✅" : "❌"}`,
+                        inline: true,
+                    },
+                    {
+                        name: `🔊 | ระดับเสียง`,
+                        value: `> \`${player.volume} %\``,
+                        inline: true,
+                    },
+                ])
+                .setFooter({text: client.user.username})
+                .setTimestamp();
+            
+            if(player.queue.current.uri.includes("youtube.com")){
+                const info = await ytdl.getInfo(player.queue.current.identifier);
+                const format = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' });
+                Np_embed.addFields([
+                    {
+                        name: `📥 | ดาวน์โหลดเพลง`, 
+                        value: `> [\`คลิ๊กลิ้งนี้เพื่อโหลดเพลง\`](${format.url})`, 
+                        inline: true 
+                    }
+                ]);
+            }
+
             Np_embed.addFields([
                 {
-                    name: `📥 | ดาวน์โหลดเพลง`, 
-                    value: `> [\`คลิ๊กลิ้งนี้เพื่อโหลดเพลง\`](${format.url})`, 
-                    inline: true 
+                    name: `᲼`, 
+                    value: `\`${await convertTime(player.position)}\` ${(await progressbar(player.position, player.queue.current.length, 18)).Bar} \`${await convertTime(player.queue.current.length)}\``,
+                    inline: false
                 }
             ]);
+        
+            await interaction.reply({embeds: [ Np_embed ]});
         }
-
-        Np_embed.addFields([
-            {
-                name: `᲼`, 
-                value: `\`${await convertTime(player.position)}\` ${(await progressbar(player.position, player.queue.current.length, 18)).Bar} \`${await convertTime(player.queue.current.length)}\``,
-                inline: false
-            }
-        ]);
-    
-        await interaction.reply({embeds: [ Np_embed ]});
+        catch(err){
+            await interaction.reply("❗ | Error โปรดลองใหม่ในภายหลัง")
+        }
     }
 };

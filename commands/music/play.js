@@ -30,7 +30,6 @@ module.exports = {
         if(!query) return interaction.reply('⚠ | โปรดระบุเพลงที่ต้องการด้วยน่ะ');
 
 
-
         let player = manager.players.get(interaction.guild.id);
         if(!player){
             player = await manager.createPlayer({

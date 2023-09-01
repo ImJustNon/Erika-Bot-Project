@@ -64,7 +64,7 @@ module.exports = async(client) =>{
         // const musicChannelID = await db.get(`music_${client.user.id}_${player.guild}_channel`);
         
         
-        const msg = await channel.send('❗ | คิวหมดเเล้วน่ะ');
+        const msg = await channel.send({ embeds: [ new EmbedBuilder().setColor("Random").setTitle('💤 | คิวหมดเเล้วน่ะ').setFooter({ text: client.user.username }).setTimestamp() ] });
         // if(player.textChannel == musicChannelID){
         //     setTimeout(() => {
         //         msg.delete();
