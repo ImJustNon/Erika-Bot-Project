@@ -36,7 +36,9 @@ module.exports = async(client) =>{
                             inline: true,
                         },
                     ],
-                ),
+                )
+                .setFooter({text: client.user.username})
+                .setTimestamp()
             ],
         });
         // client.channels.cache.get(player.textId)?.send({content: `Now playing **${track.title}** by **${track.author}**`}).then(x => player.data.set("message", x));
@@ -62,7 +64,7 @@ module.exports = async(client) =>{
         // const musicChannelID = await db.get(`music_${client.user.id}_${player.guild}_channel`);
         
         
-        const msg = await channel.send({ embeds: [ new EmbedBuilder().setColor("Random").setTitle('💤 | คิวหมดเเล้วน่ะ').setFooter({ text: client.user.username }).setTimestamp() ] });
+        const msg = await channel.send({ embeds: [ new EmbedBuilder().setColor("Random").setTitle('💤 | คิวหมดเเล้วน่ะ') ] });
         // if(player.textChannel == musicChannelID){
         //     setTimeout(() => {
         //         msg.delete();
