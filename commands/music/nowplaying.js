@@ -10,7 +10,7 @@ module.exports = {
     description: 'ข้อมูลเพลงที่กำลังเปิดอยู่',
     type: 1,
     options: [],
-    role_perms: null,
+    userPermissions: [],
     developers_only: false,
     category: 'music',
     callback: async ({client, interaction, config}) => {

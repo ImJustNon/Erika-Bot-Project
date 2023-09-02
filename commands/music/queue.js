@@ -8,7 +8,7 @@ module.exports = {
     description: 'รายการคิวเพลง',
     type: 1,
     options: [],
-    role_perms: null,
+    userPermissions: [],
     developers_only: false,
     category: 'music',
     callback: async ({client, interaction, config}) => {

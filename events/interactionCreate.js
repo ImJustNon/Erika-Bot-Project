@@ -9,7 +9,7 @@ client.on('interactionCreate', async (interaction) => {
         // check if incalid command
         if(!command){
             return interaction.reply({
-                content: `\`❌\` ไม่พบคำสั่งนี้ โปรดลองใหม่ในภายหลังน่ะ`,
+                content: `❌ ไม่พบคำสั่งนี้ โปรดลองใหม่ในภายหลังน่ะ`,
                 ephemeral: true,
             });
         }
@@ -20,7 +20,7 @@ client.on('interactionCreate', async (interaction) => {
                 for(let i = 0; i < data.results.length; i++){
                     if(data.results[i].command_name === command.name){
                         return interaction.reply({
-                            content: `\`❌\` คำสั่งนี้ได้ถูกปิดใช้งานในเซิฟเวอร์นี้`,
+                            content: `❌ | คำสั่งนี้ได้ถูกปิดใช้งานในเซิฟเวอร์นี้`,
                             ephemeral: true,
                         });
                     }
@@ -30,8 +30,8 @@ client.on('interactionCreate', async (interaction) => {
             if (command.owner_only && command.owner_only === true) {
                 if (interaction.user.id !== config.users.owner) {
                     return interaction.reply({
-                        content: `\`❌\` คำสั่งนี้สามารถสำหรับ Owner เท่านั้น`,
-                        ephemeral: true
+                        content: `❌ | คำสั่งนี้สามารถสำหรับ Owner เท่านั้น`,
+                        ephemeral: true,
                     });
                 }
             }
@@ -40,41 +40,21 @@ client.on('interactionCreate', async (interaction) => {
                 if (config.users?.developers && config.users?.developers?.length > 0) {
                     if (!config.users.developers.some((dev) => interaction.user.id === dev)) {
                         return interaction.reply({
-                            content: `\`❌\` คำสั่งนี้สามารถสำหรับ Developer เท่านั้น`,
-                            ephemeral: true
+                            content: `❌ | คำสั่งนี้สามารถสำหรับ Developer เท่านั้น`,
+                            ephemeral: true,
                         });
                     }
                 }
             }
 
-            if (command.role_perms && command.role_perms !== null) {
-                if (Array.isArray(command.role_perms)) {
-                    if (command.role_perms?.length > 0) {
-                        let boolean = false;
+            if (command.userPermissions && command.userPermissions !== null) {
+                if (Array.isArray(command.userPermissions)) {
+                    if (command.userPermissions.length > 0) {
+                        const checkPerms = interaction.member.permissions.has(command.userPermissions);
 
-                        await command.role_perms.forEach((r) => {
-                            const role = interaction.guild.roles.cache.get(r);
-
-                            if (!role) return;
-
-                            if (!interaction.member.roles) boolean = false;
-                            if (interaction.member.roles.cache.some((r1) => r1.id === role.id)) boolean = true;
-                        });
-
-                        if (boolean === false){
+                        if (!checkPerms){
                             return interaction.reply({
-                                content: `\`❌\` คุณไม่มีสิทธิใช้คำสั่งนี้น่ะ`,
-                                ephemeral: true,
-                            });
-                        }
-                    }
-                } else if (typeof command.role_perms === 'string') {
-                    const role = interaction.guild.roles.cache.get(command.role_perms);
-
-                    if (role) {
-                        if (!interaction.member.roles.cache.has(role)){ 
-                            return interaction.reply({
-                                content: `\`❌\` คุณไม่มีสิทธิใช้คำสั่งนี้น่ะ`,
+                                content: `❌ | คุณไม่มีสิทธิใช้คำสั่งนี้น่ะ`,
                                 ephemeral: true,
                             });
                         }
@@ -82,12 +62,12 @@ client.on('interactionCreate', async (interaction) => {
                 }
             }
 
-            command.callback({client, interaction, config});
+            await command.callback({client, interaction, config, thisCommand: command});
         }
         catch(err){
-            console.error(`[Error] Failed to run the command \'${interaction.commandName}\'.`);
+            console.error(`[Error] Failed to run the command \'${interaction.commandName}\'. Error : ${err}`);
             return interaction.reply({
-                content: `\`⚠\` โปรดลองใหม่ในภายหลังน่ะ`,
+                content: `⚠ | โปรดลองใหม่ในภายหลังน่ะ`,
                 ephemeral: true,
             });
         }

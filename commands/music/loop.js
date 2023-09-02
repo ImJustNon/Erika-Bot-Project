@@ -28,7 +28,7 @@ module.exports = {
             ],
         },
     ],
-    role_perms: null,
+    userPermissions: [],
     developers_only: false,
     category: 'music',
     callback: async ({client, interaction, config}) => {

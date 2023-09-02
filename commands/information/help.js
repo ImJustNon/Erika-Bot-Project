@@ -9,7 +9,7 @@ module.exports = {
     description: 'คำสั่งช่วยเหลือ',
     type: 1,
     options: [],
-    role_perms: null,
+    userPermissions: [],
     developers_only: false,
     category: 'information',
     callback: async ({client, interaction}) => {

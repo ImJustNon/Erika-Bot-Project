@@ -5,7 +5,7 @@ module.exports = {
     description: 'เช็ค Ping บอท',
     type: 1,
     options: [],
-    role_perms: null,
+    userPermissions: null,
     developers_only: false,
     category: 'common',
     callback: async ({client, interaction, config}) => {

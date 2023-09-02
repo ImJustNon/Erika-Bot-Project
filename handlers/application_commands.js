@@ -11,7 +11,7 @@ module.exports = (client, config) => {
             let pulled = require('../commands/' + dir + '/' + file);
 
             if (pulled.name && pulled.type) {
-                console.log('[Commands-Handler] Loaded : ' + file);
+                console.log(`[Commands-Handler] Loaded : ${dir}/${file}`);
                 filesCount++;
                     
 
@@ -38,9 +38,8 @@ module.exports = (client, config) => {
                 continue;
             };
         };
-
-        console.log(`[Commands-Handler] Loaded Successful : ${filesCount}`);
     });
+    console.log(`[Commands-Handler] Loaded Successful : ${filesCount}`);
 
     const register = new ApplicationCommandsRegister(config.client.token, config.client.id).setApplicationCommands(commands).setRestVersion(10);
 
