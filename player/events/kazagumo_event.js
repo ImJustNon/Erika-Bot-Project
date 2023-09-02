@@ -36,9 +36,7 @@ module.exports = async(client) =>{
                             inline: true,
                         },
                     ],
-                )
-                .setFooter({text: client.user.username})
-                .setTimestamp()
+                ),
             ],
         });
         // client.channels.cache.get(player.textId)?.send({content: `Now playing **${track.title}** by **${track.author}**`}).then(x => player.data.set("message", x));
