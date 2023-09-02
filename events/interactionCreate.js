@@ -3,7 +3,7 @@ const config = require('../config/config.js');
 const { executeQuery } = require("../database/mysql_connection.js");
 
 client.on('interactionCreate', async (interaction) => {
-    if (interaction.isChatInputCommand() || interaction.isUserContextMenuCommand() || interaction.isMessageContextMenuCommand()) {
+    if(interaction.isChatInputCommand()){
         const command = await client.commands.get(interaction.commandName);
         
         // check if incalid command
@@ -94,6 +94,10 @@ client.on('interactionCreate', async (interaction) => {
         finally {
             console.log(`[Alert] ${interaction.user.username} has used the command \'${interaction.commandName}\'.`);
         };
+    }
+    else if(interaction.isMessageContextMenuCommand){
+    }
+    else if(interaction.isUserContextMenuCommand){
     }
     else return;
 });
