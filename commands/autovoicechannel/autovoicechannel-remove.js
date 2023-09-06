@@ -2,7 +2,7 @@ const { executeQuery } = require("../../database/mysql_connection.js");
 const { PermissionsBitField } = require("discord.js");
 
 module.exports = {
-    name: 'autovoicechannel-remove',
+    name: 'autovc-remove',
     description: 'ลบการตั้งค่าช่องเสียงอัตโนมัติ',
     type: 1,
     options: [

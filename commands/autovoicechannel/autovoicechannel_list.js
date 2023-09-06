@@ -2,7 +2,7 @@ const { executeQuery } = require("../../database/mysql_connection.js");
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-    name: 'autovoicechannel-list',
+    name: 'autovc-list',
     description: 'เเสดงการการตั้งค่าช่องเสียงอัตโนมัติทั้งหมด',
     type: 1,
     options: [],
