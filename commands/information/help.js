@@ -84,7 +84,7 @@ module.exports = {
             const getCmdDataFromCategoryName = client.commands.filter(c => c.category === selection);
             const createEmbed = new EmbedBuilder()
                 .setColor("Random")
-                .setTitle(`🎮 | คำสั่งหมวดหมู่ **${selection.toUpperCase()}** | 🎮`)
+                .setTitle(`💨 | คำสั่งหมวดหมู่ **${selection.toUpperCase()}**`)
                 .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
                 .setImage("https://media.tenor.com/RfX4M6VqfRMAAAAC/rainbow-line.gif")
                 .setFooter({ text: client.user.username })
