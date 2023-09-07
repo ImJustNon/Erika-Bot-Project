@@ -3,7 +3,7 @@ const { ActivityType } = require("discord.js");
 
 
 client.on('ready', async () => {
-    console.log('> Logged in as ' + client.user.username);
+    console.log(`> Logged in as : ${client.user.username} #${client.user.discriminator}`);
     
     change_status();
     setInterval(() => {

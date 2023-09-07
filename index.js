@@ -11,13 +11,14 @@ client.modules = fs.readdirSync('./commands');
 
 module.exports = client;
 
+
+
 fs.readdirSync('./handlers').forEach((handler) => {
     require('./handlers/' + handler)(client, config);
 });
 
 // music client
 require("./player/main.js")(client);
-
 client.login(config.client.token);
 
 
@@ -33,3 +34,5 @@ process.on('uncaughtExceptionMonitor', (err, origin) => {
     console.error('[antiCrash] :: [uncaughtExceptionMonitor]');
     console.log(err, origin);
 });
+
+
