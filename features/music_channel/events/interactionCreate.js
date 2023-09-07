@@ -1,32 +1,67 @@
 const { executeQuery } = require("../../../database/mysql_connection.js");
 const { manager } = require("../../../player/manager.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = async client => {
     client.on("interactionCreate", async(interaction) =>{
+        if(!interaction.isButton()) return;
 
-        // check channel
-        const textChannel = interaction.channel;
-        // if(!textChannel.name.includes("music") && !textChannel.name.includes(`${client.user.username}-music`) && !textChannel.name.includes(`${client.user.username}`)) return;
+        // check channel from channel name 
+        if(!interaction.channel.name.includes("music") && !interaction.channel.name.includes(`${client.user.username}-music`) && !interaction.channel.name.includes(`${client.user.username}`)) return;
         
+        // check channel from database
         const getMusicChannelData = await executeQuery('SELECT * FROM guild_music_channel WHERE guild_id=? AND channel_id=?', [String(interaction.guild.id), String(interaction.channel.id)]);    
         if(getMusicChannelData.results.length === 0) return;
         
+
         const player = manager.players.get(interaction.guild.id);
-        if(!player || !player.queue.current) return interaction.reply({
-            content: '🟡 | ยังไม่มีการเล่นเพลง ณ ตอนนี้เลยน่ะ',
-            ephemeral: true,
-        });
-
         const channel = interaction.member.voice.channel;
-        if(!channel) return interaction.reply({
-            content: '🟡 | โปรดเข้าห้องเสียงก่อนใช้คำสั่งน่ะ',
-            ephemeral: true,
-        });
+        const bot = interaction.guild.members.cache.get(client.user.id);
 
-        const clientUser = interaction.guild.members.cache.get(client.user.id);
-        if(clientUser.voice.channel && !channel.equals(clientUser.voice.channel)) return interaction.reply({
-            content: '🟡 | ดูเหมือนว่าคุณจะไม่ได้อยู่ช่องเสียงเดียวกันน่ะ',
-            ephemeral: true,
-        });
+        // check bot is available for use
+        if(!player || !player.queue.current){
+            return interaction.reply({
+                content: '🟡 | ยังไม่มีการเล่นเพลง ณ ตอนนี้เลยน่ะ',
+                ephemeral: true,
+            });
+        }
+        if(!channel){
+            return interaction.reply({
+                content: '🟡 | โปรดเข้าห้องเสียงก่อนใช้คำสั่งน่ะ',
+                ephemeral: true,
+            });
+        }
+        if(bot.voice.channel && !channel.equals(bot.voice.channel)){
+            return interaction.member.send({
+                embeds: [
+                    new EmbedBuilder().setDescription('🔴 | ตอนนี้มีคนกำลังใช้งานอยู่น่ะ').setColor("Red").setFooter({ text: client.user.username }).setTimestamp(),
+                ],
+            }).then(async msg =>{
+                await msg.react('🚫').catch(err => console.log(err));
+                setTimeout(async() =>{
+                    await msg.delete();
+                }, 15000);
+            });
+        }
+
+        // button duty
+        if(interaction.customId == 'music_pause'){
+            if(!player.paused){
+                player.pause(true);
+                await interaction.reply(':white_check_mark: ทำการหยุดเพลงชั่วคราวเรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else if(player.paused){
+                player.pause(false);
+                await interaction.reply(':white_check_mark: ทำการเล่นเพลงต่อเเล้วค่ะ').then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            } 
+        }
     });
 }
