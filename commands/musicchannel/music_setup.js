@@ -1,6 +1,7 @@
 const { executeQuery } = require("../../database/mysql_connection.js");
 const { sqliteExecute } = require("../../database/sqlite.js");
 const { PermissionsBitField, EmbedBuilder, ChannelType, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
+const config = require("../../config/config.js");
 
 module.exports = {
     name: 'music-setup',
@@ -36,14 +37,14 @@ module.exports = {
                 let contentCurrentId = "";
 
                 await ch.send({
-                    content: "https://cdn.discordapp.com/attachments/887363452304261140/964713073527099392/standard_4.gif",
+                    content: config.features.musicChannel.defaultBannerUrl,
                 }).then(msg => contentBannerId = msg.id);
                 await ch.send({
                     content: "**คิวเพลง:** \nเข้าช่องเสียง และพิมพ์ชื่อเพลงหรือลิงก์ของเพลง เพื่อเปิดเพลงน่ะ "
                 }).then(msg => contentqueueId = msg.id);
                 await ch.send({
                     embeds: [
-                        new EmbedBuilder().setColor("Random").setTitle("ยังไม่มีเพลงเล่นอยู่ ณ ตอนนี้").setImage("https://cdn.discordapp.com/attachments/887363452304261140/964737487383711764/standard_7.gif").setFooter({ text: "ใช้ /help สำหรับคำสั่งเพิ่มเติม" }).setTimestamp(),
+                        new EmbedBuilder().setColor(config.features.musicChannel.defaultEmbedColor).setTitle("ยังไม่มีเพลงเล่นอยู่ ณ ตอนนี้").setImage(config.features.musicChannel.defaultTrackImageUrl).setFooter({ text: "ใช้ /help สำหรับคำสั่งเพิ่มเติม" }).setTimestamp(),
                     ],
                     components: [
                         new ActionRowBuilder().addComponents(
@@ -61,8 +62,15 @@ module.exports = {
                     ],
                 }).then(msg => contentCurrentId = msg.id);
 
-                await executeQuery('INSERT INTO guild_music_channel(guild_id,channel_id,author_id,create_on,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?,?,?)', [String(guildId), String(channelId), String(authorId), String(createOn), String(contentBannerId), String(contentqueueId), String(contentqueueId)]);
-                // await sqliteExecute.run("INSERT INTO guild_music_channel_content(guild_id,channel_id,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?)", [String(guildId), String(channelId), String(contentBannerId), String(contentqueueId), String(contentCurrentId)]);
+                await executeQuery('INSERT INTO guild_music_channel(guild_id,channel_id,author_id,create_on,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?,?,?)', [
+                    String(guildId), 
+                    String(channelId), 
+                    String(authorId), 
+                    String(createOn), 
+                    String(contentBannerId), 
+                    String(contentqueueId), 
+                    String(contentCurrentId)
+                ]);
             }).catch(() =>{});
         }
     }

@@ -2,6 +2,8 @@ const { executeQuery } = require("../../../database/mysql_connection.js");
 const { sqliteExecute } = require("../../../database/sqlite.js");
 const { manager } = require("../../../player/manager.js");
 const { EmbedBuilder } = require("discord.js");
+const { trackEmbed } = require("../functions/trackEmbed.js");
+const { queueMessage } = require("../functions/queueMessage.js");
 
 module.exports = async client => {
     client.on("interactionCreate", async(interaction) =>{
@@ -45,6 +47,10 @@ module.exports = async client => {
             });
         }
 
+
+        const trackContent = await interaction.channel.messages.fetch(await getMusicChannelData.results[0].content_current_id);
+        const queueContent = await interaction.channel.messages.fetch(await getMusicChannelData.results[0].content_queue_id);
+
         // button duty
         if(interaction.customId === 'music_pause'){
             if(!player.paused){
@@ -76,6 +82,111 @@ module.exports = async client => {
             if(player.playing){
                 player.destroy();
                 await interaction.reply('🟢 | ทำการปิดเพลงเรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+        }
+        else if(interaction.customId === 'music_loop'){
+            if(player.loop === "none"){
+                player.setLoop("queue");
+                await interaction.reply(`🟢 | ทำการเปิดการวนซ้ำเพลงเเบบ \`ทั้งหมด\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit({ embeds: [await trackEmbed(client, player)]});
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else if(player.loop === "queue"){
+                player.setLoop("track");
+                await interaction.reply(`🟢 | ทำการเปิดการวนซ้ำเพลงเเบบ \`เพลงเดียว\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit({ embeds: [await trackEmbed(client, player)]});
+                    setTimeout(async() =>{
+                    await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else if(player.loop === "track"){
+                player.setLoop("none");
+                await interaction.reply(`🟢 | ทำการปิดวนซ้ำเพลงเรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit({ embeds: [await trackEmbed(client, player)]});
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+        }
+        else if(interaction.customId === 'music_shuffle'){
+            if(!player.queue || !player.queue.length || player.queue.length == 0){
+                await interaction.reply('🟡 | เอ๊ะ! ดูเหมือนว่าคิวของคุณจะไม่มีความยาวมากพอน่ะคะ').then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else{
+                player.queue.shuffle();
+                await interaction.reply('🟢 | ทำการสุ่มเรียงรายการคิวใหม่เรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                    await queueContent.edit({ content: await queueMessage(client, player)});
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+        }
+        else if(interaction.customId === 'music_volup'){
+            let newVol = player.volume + 10;
+            if(newVol < 110){
+                player.setVolume(newVol);
+                await interaction.reply(`🟢 | ทำการปรับความดังเสียงเป็น \`${newVol}\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit({ embeds: [ await trackEmbed(client, player) ]});
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else if(newVol >= 110){
+                await interaction.reply(`🟡 | ไม่สามารถปรับความดังเสียงได้มากกว่านี้เเล้วค่ะ`).then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+        }
+        else if(interaction.customId === 'music_voldown'){
+            let newVol = player.volume - 10;
+            if(newVol > 0){
+                player.setVolume(newVol);
+                await interaction.reply(`🟢 | ทำการปรับความดังเสียงเป็น \`${newVol}\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit({ embeds: [ await trackEmbed(client, player) ]});
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }   
+            else if(newVol < 0){
+                await interaction.reply(`🟡 | ไม่สามารถปรับความดังเสียงได้น้อยกว่านี้เเล้วค่ะ`).then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }  
+        }
+        else if(interaction.customId === 'music_mute'){
+            if(player.volume > 0){
+                player.setVolume(0);
+                await interaction.reply(`🟢 | ทำการปิดเสียงเรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit(await trackEmbed(client, player));
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
+            else if(player.volume === 0){
+                player.setVolume(player.options.volume);
+                await interaction.reply(`🟢 | ทำการเปิดเสียงเรียบร้อยเเล้วค่ะ`).then(async() =>{ 
+                    await trackContent.edit(await trackEmbed(client, player));
                     setTimeout(async() =>{
                         await interaction.deleteReply();
                     }, 5000); 

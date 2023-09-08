@@ -94,7 +94,15 @@ module.exports = {
     users: {
         developers: ["708965153131200594"],
         owner: "708965153131200594",
-    }
+    },
+    features: {
+        musicChannel: {
+            defaultBannerUrl: "https://cdn.discordapp.com/attachments/933667577207611402/960360690772758559/standard_2.gif",
+            defaultTrackImageUrl: "https://cdn.discordapp.com/attachments/887363452304261140/964737487383711764/standard_7.gif",
+            defaultEmbedColor: "#f70dff",
+        },
+    },
+    clearCacheWhenStart: false,
 };
 
 function MysqlConfig(){
