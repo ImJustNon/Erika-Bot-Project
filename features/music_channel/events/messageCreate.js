@@ -94,7 +94,8 @@ module.exports = client => {
 
         if (!player.playing && !player.paused){
             await player.play();
-            await queueContent.edit({ content: await queueMessage(client, player) });
         }
+        
+        await queueContent.edit({ content: await queueMessage(client, player) });
     });
 }

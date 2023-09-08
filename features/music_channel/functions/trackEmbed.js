@@ -1,6 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const config = require('../../../config/config.js');
 const { youtubeThumbnail } = require('../../../utilities/youtubeThumbnail.js');
+const { convertTime } = require("../../../utilities/convertTime.js");
 
 module.exports = {
     trackEmbed: async(client, player) =>{
@@ -15,8 +16,41 @@ module.exports = {
             .setColor(config.features.musicChannel.defaultEmbedColor)
             .setTitle(player.queue.current.title)
             .setURL(player.queue.current.uri)
+            .addFields([
+                {
+                    name: "📫 | เปิดโดย",
+                    value: `<@${player.queue.current.requester}>`,
+                    inline: true,
+                },
+                {
+                    name: "🔄 | Loop",
+                    value: `\` ${loopType} \``,
+                    inline: true,
+                },
+                {
+                    name: "🔊 | Volume",
+                    value: `\` ${String(parseInt(vol * 100))} \``,
+                    inline: true,
+                },
+                {
+                    name: "🚪 | ช่อง",
+                    value: `<#${player.textId}>`,
+                    inline: true,
+                },
+                {
+                    name: "🌍 | Creator",
+                    value: `\` ${player.queue.current.author} \``,
+                    inline: true,
+                },
+                {
+                    name: "⏳ | เวลา",
+                    value: `\` ${await convertTime(player.queue.current.length)} \``,
+                    inline: true,
+                },
+            ])
             .setImage(await youtubeThumbnail(player.queue.current.uri, 'high'))
-            .setFooter({ text: `เปิดโดย : ${player.queue.current.requester.username} | Loop : ${loopType} | Volume : ${String(vol)}`})
+            .setFooter({ text: client.user.username})
+            .setTimestamp();
         return embed;
     }
 }
