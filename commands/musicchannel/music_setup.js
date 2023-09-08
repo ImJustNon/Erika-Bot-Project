@@ -13,6 +13,9 @@ module.exports = {
     callback: async ({client, interaction}) => {
         await interaction.reply("⌛ | กำลังตั้งค่าห้องเล่นเพลง กรุณารอซักครู่น่ะ");
 
+        const checkCurrentData = await executeQuery("SELECT channel_id FROM guild_music_channel WHERE guild_id=?", [String(interaction.guild.id)]);
+        if(checkCurrentData.results.length !== 0) return await interaction.editReply("🔴 | เซิฟเวอร์นี้ได้มีการตั้งค่าช่องเล่นเพลงไว้เเล้วน่ะ");
+
         await CreateChannelAndSetupMessage();
         await interaction.editReply("🟢 | ทำการตั้งค่าช่องเล่นเพลง เรียบร้อยเเล้ว");
         async function CreateChannelAndSetupMessage(){
@@ -58,8 +61,8 @@ module.exports = {
                     ],
                 }).then(msg => contentCurrentId = msg.id);
 
-                await executeQuery('INSERT INTO guild_music_channel(guild_id,channel_id,author_id,create_on) VALUES(?,?,?,?)', [String(guildId), String(channelId), String(authorId), String(createOn)]);
-                await sqliteExecute.run("INSERT INTO guild_music_channel_content(guild_id,channel_id,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?)", [String(guildId), String(channelId), String(contentBannerId), String(contentqueueId), String(contentCurrentId)]);
+                await executeQuery('INSERT INTO guild_music_channel(guild_id,channel_id,author_id,create_on,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?,?,?)', [String(guildId), String(channelId), String(authorId), String(createOn), String(contentBannerId), String(contentqueueId), String(contentqueueId)]);
+                // await sqliteExecute.run("INSERT INTO guild_music_channel_content(guild_id,channel_id,content_banner_id,content_queue_id,content_current_id) VALUES(?,?,?,?,?)", [String(guildId), String(channelId), String(contentBannerId), String(contentqueueId), String(contentCurrentId)]);
             }).catch(() =>{});
         }
     }

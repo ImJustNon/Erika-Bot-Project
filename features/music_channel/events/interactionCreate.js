@@ -1,4 +1,5 @@
 const { executeQuery } = require("../../../database/mysql_connection.js");
+const { sqliteExecute } = require("../../../database/sqlite.js");
 const { manager } = require("../../../player/manager.js");
 const { EmbedBuilder } = require("discord.js");
 
@@ -10,7 +11,7 @@ module.exports = async client => {
         if(!interaction.channel.name.includes("music") && !interaction.channel.name.includes(`${client.user.username}-music`) && !interaction.channel.name.includes(`${client.user.username}`)) return;
         
         // check channel from database
-        const getMusicChannelData = await executeQuery('SELECT * FROM guild_music_channel WHERE guild_id=? AND channel_id=?', [String(interaction.guild.id), String(interaction.channel.id)]);    
+        const getMusicChannelData = await sqliteExecute.get('SELECT * FROM guild_music_channel_cache WHERE guild_id=? AND channel_id=?', [String(interaction.guild.id), String(interaction.channel.id)]);    
         if(getMusicChannelData.results.length === 0) return;
         
 
