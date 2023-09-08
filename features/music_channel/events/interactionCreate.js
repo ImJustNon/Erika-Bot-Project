@@ -45,23 +45,41 @@ module.exports = async client => {
         }
 
         // button duty
-        if(interaction.customId == 'music_pause'){
+        if(interaction.customId === 'music_pause'){
             if(!player.paused){
                 player.pause(true);
-                await interaction.reply(':white_check_mark: ทำการหยุดเพลงชั่วคราวเรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                await interaction.reply('🟢 | ทำการหยุดเพลงชั่วคราวเรียบร้อยเเล้วค่ะ').then(async(i) =>{ 
                     setTimeout(async() =>{
                         await interaction.deleteReply();
-                    }, 5000); 
+                    }, 5000);
                 });
             }
             else if(player.paused){
                 player.pause(false);
-                await interaction.reply(':white_check_mark: ทำการเล่นเพลงต่อเเล้วค่ะ').then(async() =>{ 
+                await interaction.reply('🟢 | ทำการเล่นเพลงต่อเเล้วค่ะ').then(async() =>{ 
                     setTimeout(async() =>{
                         await interaction.deleteReply();
                     }, 5000); 
                 });
             } 
+        }
+        else if(interaction.customId === 'music_skip'){
+            player.skip();
+            await interaction.reply('🟢 | ทำการข้ามเพลงให้เรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                setTimeout(async() =>{
+                    await interaction.deleteReply();
+                }, 5000); 
+            });
+        }
+        else if(interaction.customId === 'music_stop'){
+            if(player.playing){
+                player.destroy();
+                await interaction.reply('🟢 | ทำการปิดเพลงเรียบร้อยเเล้วค่ะ').then(async() =>{ 
+                    setTimeout(async() =>{
+                        await interaction.deleteReply();
+                    }, 5000); 
+                });
+            }
         }
     });
 }
