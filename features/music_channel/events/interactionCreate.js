@@ -136,7 +136,7 @@ module.exports = async client => {
             }
         }
         else if(interaction.customId === 'music_volup'){
-            let newVol = player.volume + 10;
+            let newVol = parseInt(player.volume) + 10;
             if(newVol < 110){
                 player.setVolume(newVol);
                 await interaction.reply(`🟢 | ทำการปรับความดังเสียงเป็น \`${newVol}\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
@@ -155,7 +155,7 @@ module.exports = async client => {
             }
         }
         else if(interaction.customId === 'music_voldown'){
-            let newVol = player.volume - 10;
+            let newVol = parseInt(player.volume) - 10;
             if(newVol > 0){
                 player.setVolume(newVol);
                 await interaction.reply(`🟢 | ทำการปรับความดังเสียงเป็น \`${newVol}\` เรียบร้อยเเล้วค่ะ`).then(async() =>{ 
@@ -174,7 +174,7 @@ module.exports = async client => {
             }  
         }
         else if(interaction.customId === 'music_mute'){
-            if(player.volume > 0){
+            if(parseInt(player.volume) > 0){
                 player.setVolume(0);
                 await interaction.reply(`🟢 | ทำการปิดเสียงเรียบร้อยเเล้วค่ะ`).then(async() =>{ 
                     await trackContent.edit(await trackEmbed(client, player));
@@ -183,7 +183,7 @@ module.exports = async client => {
                     }, 5000); 
                 });
             }
-            else if(player.volume === 0){
+            else if(parseInt(player.volume) === 0){
                 player.setVolume(player.options.volume);
                 await interaction.reply(`🟢 | ทำการเปิดเสียงเรียบร้อยเเล้วค่ะ`).then(async() =>{ 
                     await trackContent.edit(await trackEmbed(client, player));

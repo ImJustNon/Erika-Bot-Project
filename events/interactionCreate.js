@@ -67,7 +67,7 @@ client.on('interactionCreate', async (interaction) => {
         catch(err){
             console.error(`[Error] Failed to run the command \'${interaction.commandName}\'. Error : ${err}`);
             return interaction.reply({
-                content: `⚠ | โปรดลองใหม่ในภายหลังน่ะ`,
+                content: `🔴 | โปรดลองใหม่ในภายหลังน่ะ`,
                 ephemeral: true,
             });
         }
