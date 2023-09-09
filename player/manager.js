@@ -28,7 +28,7 @@ const manager = new Kazagumo({
         const guild = client.guilds.cache.get(guildId);
         if (guild) guild.shard.send(payload);
     }
-}, new Connectors.DiscordJS(client), Nodes);
+}, new Connectors.DiscordJS(client), Nodes, {});
 
 
 exports.manager = manager;
