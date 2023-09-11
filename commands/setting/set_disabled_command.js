@@ -3,7 +3,7 @@ const { manager } = require("../../player/manager.js");
 const { EmbedBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
-    name: 'disable-cmd',
+    name: 'set-disable-cmd',
     description: 'ปิดการใช้งานคำสั่ง',
     type: 1,
     options: [
