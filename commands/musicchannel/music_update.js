@@ -7,7 +7,7 @@ module.exports = {
     description: 'อัปเดตการตั้งค่าช่องเล่นเพลง',
     type: 1,
     options: [],
-    userPermissions: [],
+    userPermissions: [PermissionsBitField.Flags.Administrator],
     developers_only: false,
     category: 'musicchannel',
     callback: async ({client, interaction}) => {

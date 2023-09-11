@@ -29,8 +29,8 @@ const sqliteExecute = {
         const row = await better_sqlite3.prepare(query).run(params);
         return row;
     },
-    all: async (query) =>{
-        const rows = await better_sqlite3.prepare(query).all();
+    all: async (query, params) =>{
+        const rows = await better_sqlite3.prepare(query).all(params);
         return {
             results: rows,
         }

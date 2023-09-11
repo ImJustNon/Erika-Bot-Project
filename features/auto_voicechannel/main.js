@@ -28,7 +28,7 @@ module.exports = client => {
     client.on('voiceStateUpdate', async(oldState, newState) => {
         // Join Channel
         if(newState.channel && !oldState.channel){
-            const getJoinChannelData = await executeQuery('SELECT * FROM guild_auto_voice_channel WHERE guild_id=? AND channel_id=?', [String(newState.guild.id), String(newState.channel.id)]);
+            const getJoinChannelData = await sqliteExecute.get('SELECT * FROM guild_auto_voice_channel_cache WHERE guild_id=? AND channel_id=?', [String(newState.guild.id), String(newState.channel.id)]);
             if(getJoinChannelData.results.length === 0) return;
             await CreateVoiceChannel(newState);
             return;
@@ -46,7 +46,7 @@ module.exports = client => {
         // Switch Channel
         if(oldState.channel && newState.channel){
             if(oldState.channel.id === newState.channel.id) return;
-            const getJoinChannelData = await executeQuery('SELECT * FROM guild_auto_voice_channel WHERE guild_id=? AND channel_id=?', [String(newState.guild.id), String(newState.channel.id)])
+            const getJoinChannelData = await sqliteExecute.get('SELECT * FROM guild_auto_voice_channel_cache WHERE guild_id=? AND channel_id=?', [String(newState.guild.id), String(newState.channel.id)])
             if(getJoinChannelData.results.length !== 0){
                 await CreateVoiceChannel(newState);
             }
