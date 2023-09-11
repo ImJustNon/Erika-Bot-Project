@@ -8,6 +8,7 @@ const { trackEmbed } = require("../functions/trackEmbed.js");
 module.exports = client => {
     client.on("messageCreate", async(message) =>{
         if(message.author.bot || message.author.username === client.user.username) return;
+        if(!message.guild) return
 
         // first check if channel name have follow keyword
         const textChannel = message.channel;
