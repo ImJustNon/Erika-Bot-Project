@@ -1512,14 +1512,7 @@ discord-api-types@0.37.50:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.50.tgz#6059eb8c0b784ad8194655a8b8b7f540fcfac428"
   integrity sha512-X4CDiMnDbA3s3RaUXWXmgAIbY1uxab3fqe3qwzg5XutR3wjqi7M3IkgQbsIBzpqBN2YWr/Qdv7JrFRqSgb4TFg==
 
-discord.js-v14-helper@^1.11.4:
-  version "1.11.4"
-  resolved "https://registry.yarnpkg.com/discord.js-v14-helper/-/discord.js-v14-helper-1.11.4.tgz#ecd9b3e9daa3be3ba4b865e60f068ae7933cd139"
-  integrity sha512-WiRR9JRGzsIhO+kd6zeJyrzWl8HzkbUYh0T7IH2i2Lym1L5GEq4pOc+7Dc1hfdsykBZ9laMfZ82kNv++InrVsA==
-  dependencies:
-    discord.js "^14.7.1"
-
-discord.js@^14.13.0, discord.js@^14.6.0, discord.js@^14.7.1:
+discord.js@^14.13.0, discord.js@^14.6.0:
   version "14.13.0"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.13.0.tgz#e7a00bdba70adb9e266a06884ca1acaf9a0b5c20"
   integrity sha512-Kufdvg7fpyTEwANGy9x7i4od4yu5c6gVddGi5CKm4Y5a6sF0VBODObI3o0Bh7TGCj0LfNT8Qp8z04wnLFzgnbA==
@@ -2145,7 +2138,15 @@ kazagumo-spotify@^1.2.0:
     kazagumo "^2.1.6"
     undici "^5.5.1"
 
-kazagumo@^2.1.6, kazagumo@^2.2.3, kazagumo@^2.3.0, kazagumo@^2.3.2:
+kazagumo@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/kazagumo/-/kazagumo-2.2.1.tgz#156a3e344b2368aaaf103548662be1fdb710e0b8"
+  integrity sha512-+Sq+Q8NpsjhXjQ//XT/MuPRUWkiklEyYQ8DyHl7eGHHzq84qRtmyEcXOPaXvyp2eLmC/R/DDPacAhWwOvP9Lcg==
+  dependencies:
+    events "^3.3.0"
+    shoukaku "^3.1.0"
+
+kazagumo@^2.1.6, kazagumo@^2.2.3, kazagumo@^2.3.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/kazagumo/-/kazagumo-2.3.2.tgz#4553315f9618f3a45811b35411602b3b27da34bc"
   integrity sha512-yC+k+yuwj9jb9/c1Wc57wvrAKe8wvnlyLYzUWC5tYeWAt5xap4JKxjJugrG2Q/2xKCq3UoIzTQw7AdKaxWbOHw==
@@ -2488,7 +2489,7 @@ node-domexception@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
 
-node-fetch@^2.6.7, node-fetch@^2.6.9:
+node-fetch@^2.6.7, node-fetch@^2.6.9, node-fetch@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
@@ -2975,6 +2976,14 @@ setprototypeof@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
+
+shoukaku@^3.1.0:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/shoukaku/-/shoukaku-3.4.2.tgz#02ff6bfda54db8c0c5e7b572304696bc49d1b122"
+  integrity sha512-+HQvFGXP/1vKZs0IFBkHgzJ2WNYlxtPCK8i05iyliVXskoViKM3n1j1/dznFzx0m9LJxedsypYJsPiDdMgSlHg==
+  dependencies:
+    node-fetch "^2.7.0"
+    ws "^8.13.0"
 
 shoukaku@^3.2.2, shoukaku@^3.4.0:
   version "3.4.0"

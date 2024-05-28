@@ -40,7 +40,7 @@ module.exports = client => {
             files: [attachment],
         });
 
-        const filter = (message) =>{
+        const filter = (message) =>{ 
             if(message.author.id !== member.id) return;
             if(message.content === captcha.text) return true;
             else member.send('🟡 | การยืนยันตัวตนผิดพลาด โปรดลองอีกครั้งน่ะ');

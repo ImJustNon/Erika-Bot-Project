@@ -1,11 +1,9 @@
 const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { Colors, ApplicationCommandsRegister, BetterConsoleLogger } = require('discord.js-v14-helper');
 
-module.exports = async (client, config) => {
+module.exports = (client, config) => {
     let commands = [];
     let filesCount = 0;
-
     fs.readdirSync('./commands/').forEach((dir) => {
         const files = fs.readdirSync('./commands/' + dir).filter((file) => file.endsWith('.js'));
 
@@ -16,14 +14,15 @@ module.exports = async (client, config) => {
                 console.log(`[Commands-Handler] Loaded : ${dir}/${file}`);
                 filesCount++;
                     
+
                 if (pulled.description) {
                     commands.push({
                         name: pulled.name,
                         description: pulled.description,
                         type: 1,
-                        options: pulled.options ? pulled.options : [],
+                        options: pulled.options ? pulled.options : null,
                         default_permission: null,
-                        default_member_permissions: null,
+                        default_member_permissions: null, 
                         nsfw: false
                     });
                 } else {
@@ -40,19 +39,10 @@ module.exports = async (client, config) => {
             };
         };
     });
+    console.log(`[Commands-Handler] Loaded Successful : ${filesCount}`);
 
-    console.log(`[Commands-Handler] Loaded Successfully: ${filesCount}`);
+    const register = new ApplicationCommandsRegister(config.client.token, config.client.id).setApplicationCommands(commands).setRestVersion(10);
 
-    const rest = new REST({ version: '10' }).setToken(config.client.token);
 
-    try {
-        await rest.put(
-            Routes.applicationCommands(config.client.id),
-            { body: commands },
-        );
-
-        console.log('[Commands-Handler] Successfully registered application commands.');
-    } catch (error) {
-        console.error('[Commands-Handler] Failed to register application commands:', error);
-    }
+    register.start().catch((data) => console.log(data.errors));
 };

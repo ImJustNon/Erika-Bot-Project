@@ -1,6 +1,5 @@
 require("dotenv").config();
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
-const { Colors, BetterConsoleLogger } = require('discord.js-v14-helper');
 const fs = require('fs');
 const config = require('./config/config.js');
 
